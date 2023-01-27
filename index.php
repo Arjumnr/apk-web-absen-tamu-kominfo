@@ -38,7 +38,8 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block "> <img src="./assets/img/logo.svg" alt=""></div>
+                            <div class="col-lg-6 d-none d-lg-block "> <img src="./assets/img/logos.jpeg" width="500"
+                            height="500" alt=""></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -65,7 +66,7 @@
                                         <!-- <a  class="btn btn-primary btn-user btn-block">
                                             
                                         </a> -->
-                                        <button type="submit" class="btn btn-primary btn-user btn-block" id="storeTamu">
+                                        <button type="submit" class="btn btn-danger btn-user btn-block" id="storeTamu">
                                             Daftar
                                         </button>
 
@@ -84,18 +85,7 @@
 
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="assets/js/sb-admin-2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-    <script src="assets/js/sweetalert2.all.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script> -->
+    <?php include_once('./templates/js/js.php'); ?>
 
 </body>
 

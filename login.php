@@ -33,29 +33,29 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block "> <img src="./assets/img/logo.svg" alt=""></div>
+                            <div class="col-lg-6 d-none d-lg-block "> <img src="./assets/img/logos.jpeg" width="500" height="500" alt=""></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Login</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" id="login" method="POST">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Username...">
+                                            <input type="text" class="form-control form-control-user" name="username" placeholder="Enter Username...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <!-- <input type="checkbox" class="custom-control-input" id="customCheck"> -->
+                                                <!-- <label class="custom-control-label" for="customCheck">Remember
+                                                    Me</label> -->
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-danger btn-user btn-block" id="loginAdmin">
                                             Login
-                                        </a>
+                                        </button>
 
                                     </form>
 
@@ -72,16 +72,46 @@
 
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="assets/js/sb-admin-2.min.js"></script>
+    <?php require_once './templates/js/js.php'; ?>
 
 </body>
 
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#login').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "./controllers/login.php",
+                data: $(this).serialize(),
+
+            }).then(function(response) {
+                var jsonData = JSON.parse(response);
+
+                if (jsonData.status == "success") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Success',
+                        text: jsonData.message,
+                    }).then(function() {
+                        window.location.href = "./dashboard";
+                    })
+                    
+                } else if (jsonData.status == "error") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: jsonData.message,
+                    })
+                } else {
+                    Swal.fire(
+                        'Invalid Credentials!',
+                    )
+                }
+            });
+        });
+    });
+</script>
