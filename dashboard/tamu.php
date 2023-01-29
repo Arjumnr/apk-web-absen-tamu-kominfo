@@ -59,9 +59,12 @@ $data = many("SELECT * FROM tb_tamu WHERE tanggal ORDER BY id DESC");
                                                 <td><?= $v['tema'] ?></td>
                                                 <td><?= $v['nama'] ?></td>
                                                 <td><?= $v['tanggal'] ?></td>
-                                                <td><?= $v['status'] ?></td>
                                                 <td class="text-center">
+                                                    <?= $v['status'] ?>
                                                     <button type="button" onclick="editForm(<?= $v['id'] ?>)" class="btn btn-warning btn-floating"><i class="fas fa-edit"></i></button>
+
+                                                </td>
+                                                <td class="text-center">
                                                     <button type="button" id="deleteData" onclick="deleteData(<?= $v['id'] ?>)" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
                                                 </td>
                                             </tr>
@@ -96,7 +99,7 @@ $data = many("SELECT * FROM tb_tamu WHERE tanggal ORDER BY id DESC");
         <script type="text/javascript">
             // $('#dataTable').DataTable();
 
-            function deleteData(id){
+            function deleteData(id) {
                 $.ajax({
                     type: "GET",
                     url: '../controllers/delete.php',
@@ -130,22 +133,32 @@ $data = many("SELECT * FROM tb_tamu WHERE tanggal ORDER BY id DESC");
 
 
             function editForm(id) {
-                // console.log(id);
+                //set status to select
                 $.ajax({
                     type: "POST",
-                    url: '../controllers/update.php',
+                    url: '../controllers/getStatusId.php',
                     data: {
                         id: id
                     },
                 }).then(function(response) {
                     var jsonData = JSON.parse(response);
+                    console.log(jsonData);
                     if (jsonData.status == "success") {
                         $('#ajaxModal').modal('show');
+                        //change status
+                        $('#status').val(jsonData.data.status);
                         // $('#title').html('Update Data');
                         // $('#pertanyaan').val(jsonData.data.pertanyaan);
-                        // $('#id').val(jsonData.data.id);
+                        $('#id').val(jsonData.data.id);
                         // $("#saveBtn").hide();
                         // $("#updateBtn").show();
+                        // Swal.fire({
+                        //     icon: 'success',
+                        //     title: 'Success',
+                        //     text: jsonData.message,
+                        // }).then(function() {
+                        //     location.reload();
+                        // })
                     } else if (jsonData.status == "error") {
                         Swal.fire({
                             icon: 'error',
@@ -159,4 +172,33 @@ $data = many("SELECT * FROM tb_tamu WHERE tanggal ORDER BY id DESC");
                     }
                 });
             };
+
+            $('#saveUpdateBtn').click(function(e) {
+                let id = $('#id').val();
+                e.preventDefault();
+                $.ajax({
+                    data: $('#formsKu').serialize(),
+                    url: "../controllers/update.php?id=" + id,
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#ajaxModal').modal('hide');
+                        $('#formsKu').trigger("reset");
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: data.message,
+                        }).then(function() {
+                            location.reload();
+                        })
+                    },
+                    error: function(data) {
+                       Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message,
+                        })
+                    }
+                })
+            })
         </script>

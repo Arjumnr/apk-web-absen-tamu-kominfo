@@ -12,36 +12,11 @@
                 <div class="modal-body mb-4">
                     <div class="form-row">
                         <div class="col-md-12 mb-12">
-                            <label for="username">Username</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                </div>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-                                <div class="invalid-feedback">
-                                    Masukan Username.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-row" id="formPassword">
-                        <div class="col-md-12 mb-12">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                            <div class="invalid-feedback">
-                                Masukan Password
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-row">
-                        <div class="col-md-12 mb-12">
                             <label for="role">Role</label>
-                            <select class="custom-select custom-select-lg" name="role" id="role" require>
-                                <option disable selected>Select Role</option>
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
+                            <select class="custom-select custom-select-lg" name="status" id="status" require>
+                                <option disable selected>Verifikasi Data Tamu</option>
+                                <option value="invalid">Invalid</option>
+                                <option value="valid">Valid</option>
                             </select>
                             <div class="invalid-feedback">
                                 Pilih Role
@@ -52,8 +27,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" id="saveBtn" class="btn btn-primary">Save</button>
-                    <button type="submit" id="updateBtn" class="btn btn-primary">Update</button>
+                    <button type="submit" id="saveUpdateBtn" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>
